@@ -1,0 +1,255 @@
+databases:
+  - name: ayni-postgres
+    databaseName: somosayni
+    user: somosayni
+    plan: free          # cambiar a "starter" para producción (no expira)
+    region: oregon
+
+services:
+
+  # ─────────────────────────────────────────
+  # 1. identidad-service  (puerto 8081)
+  #    ⚠️ Debe desplegarse PRIMERO — firma los JWT
+  # ─────────────────────────────────────────
+  - type: web
+    name: ayni-identidad-service
+    runtime: docker
+    repo: https://github.com/ayni-01/ayni-identidad-service
+    branch: main
+    plan: free          # cambiar a "starter" para evitar cold starts
+    region: oregon
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: ayni-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ayni-postgres
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ayni-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ayni-postgres
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ayni-postgres
+          property: database
+      - key: JWT_SECRET
+        sync: false     # ⚠️ Debes configurarlo manualmente en el dashboard de Render
+
+  # ─────────────────────────────────────────
+  # 2. perfiles-service  (puerto 8082)
+  # ─────────────────────────────────────────
+  - type: web
+    name: ayni-perfiles-service
+    runtime: docker
+    repo: https://github.com/ayni-01/ayni-perfiles-service
+    branch: main
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: ayni-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ayni-postgres
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ayni-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ayni-postgres
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ayni-postgres
+          property: database
+      - key: JWT_SECRET
+        sync: false
+
+  # ─────────────────────────────────────────
+  # 3. retos-service  (puerto 8083)
+  # ─────────────────────────────────────────
+  - type: web
+    name: ayni-retos-service
+    runtime: docker
+    repo: https://github.com/ayni-01/ayni-retos-service
+    branch: main
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: ayni-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ayni-postgres
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ayni-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ayni-postgres
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ayni-postgres
+          property: database
+      - key: JWT_SECRET
+        sync: false
+
+  # ─────────────────────────────────────────
+  # 4. postulaciones-service  (puerto 8084)
+  # ─────────────────────────────────────────
+  - type: web
+    name: ayni-postulaciones-service
+    runtime: docker
+    repo: https://github.com/ayni-01/ayni-postulaciones-service
+    branch: main
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: ayni-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ayni-postgres
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ayni-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ayni-postgres
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ayni-postgres
+          property: database
+      - key: JWT_SECRET
+        sync: false
+
+  # ─────────────────────────────────────────
+  # 5. habilidades-service  (puerto 8085)
+  # ─────────────────────────────────────────
+  - type: web
+    name: ayni-habilidades-service
+    runtime: docker
+    repo: https://github.com/ayni-01/ayni-habilidades-service
+    branch: main
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: ayni-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ayni-postgres
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ayni-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ayni-postgres
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ayni-postgres
+          property: database
+      - key: JWT_SECRET
+        sync: false
+
+  # ─────────────────────────────────────────
+  # 6. notificaciones-service  (puerto 8086)
+  # ─────────────────────────────────────────
+  - type: web
+    name: ayni-notificaciones-service
+    runtime: docker
+    repo: https://github.com/ayni-01/ayni-notificaciones-service
+    branch: main
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: ayni-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ayni-postgres
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ayni-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ayni-postgres
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ayni-postgres
+          property: database
+      - key: JWT_SECRET
+        sync: false
+
+  # ─────────────────────────────────────────
+  # 7. metricas-service  (puerto 8087)
+  #    ⚠️ Desplegar AL FINAL — lee tablas de retos y postulaciones
+  # ─────────────────────────────────────────
+  - type: web
+    name: ayni-metricas-service
+    runtime: docker
+    repo: https://github.com/ayni-01/ayni-metricas-service
+    branch: main
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: ayni-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ayni-postgres
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ayni-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ayni-postgres
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ayni-postgres
+          property: database
+      - key: JWT_SECRET
+        sync: false
