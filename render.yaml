@@ -293,4 +293,4 @@ services:
       - key: OPENROUTER_API_KEY
         sync: false
       - key: OPENROUTER_MODEL
-        value: deepseek/deepseek-chat-v3.1:free
+        value: openai/gpt-oss-20b:free
