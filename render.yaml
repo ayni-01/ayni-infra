@@ -253,3 +253,44 @@ services:
           property: database
       - key: JWT_SECRET
         sync: false
+
+  # ─────────────────────────────────────────
+  # 8. asistente-ia-service  (puerto 8088)
+  #    Lee snapshots de reto/postulacion/habilidad_validada — desplegar
+  #    después de retos, postulaciones y habilidades.
+  # ─────────────────────────────────────────
+  - type: web
+    name: ayni-asistente-ia-service
+    runtime: docker
+    repo: https://github.com/ayni-01/ayni-asistente-ia-service
+    branch: main
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: ayni-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ayni-postgres
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ayni-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ayni-postgres
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ayni-postgres
+          property: database
+      - key: JWT_SECRET
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_MODEL
+        value: deepseek/deepseek-chat-v3.1:free

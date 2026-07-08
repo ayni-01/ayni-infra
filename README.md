@@ -27,7 +27,13 @@ El `JWT_SECRET` está marcado como `sync: false` (secreto manual). Después de q
    ```
    JWT_SECRET = somosayni-jwt-secret-key-que-debe-ser-muy-larga-para-hs256
    ```
-   > El valor debe ser **idéntico** en los 7 servicios. Si difiere, los tokens de `identidad-service` serán rechazados por los demás.
+
+   > El valor debe ser **idéntico** en los 8 servicios. Si difiere, los tokens de `identidad-service` serán rechazados por los demás.
+
+   Además, solo en `ayni-asistente-ia-service`:
+   ```
+   OPENROUTER_API_KEY = <tu api key de openrouter.ai>
+   ```
 
 3. Render redesplegará cada servicio automáticamente al guardar.
 
@@ -45,6 +51,7 @@ El `JWT_SECRET` está marcado como `sync: false` (secreto manual). Después de q
 | `ayni-habilidades-service` | Web Service (Docker) | free |
 | `ayni-notificaciones-service` | Web Service (Docker) | free |
 | `ayni-metricas-service` | Web Service (Docker) | free |
+| `ayni-asistente-ia-service` | Web Service (Docker) | free |
 
 ---
 
@@ -61,6 +68,7 @@ Una vez desplegado, Render asigna URLs del tipo:
 | habilidades | `https://ayni-habilidades-service.onrender.com` |
 | notificaciones | `https://ayni-notificaciones-service.onrender.com` |
 | metricas | `https://ayni-metricas-service.onrender.com` |
+| asistente-ia | `https://ayni-asistente-ia-service.onrender.com` |
 
 ---
 
