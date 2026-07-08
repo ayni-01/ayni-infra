@@ -1,6 +1,6 @@
 # Somos Ayni — Infraestructura (Render)
 
-Repositorio de infraestructura para desplegar los 7 microservicios de Somos Ayni en [Render](https://render.com) con un solo clic usando el Blueprint `render.yaml`.
+Repositorio de infraestructura para desplegar los 8 microservicios de Somos Ayni en [Render](https://render.com) con un solo clic usando el Blueprint `render.yaml`.
 
 ---
 
@@ -13,7 +13,7 @@ O manualmente:
 1. Ir a [render.com/dashboard](https://dashboard.render.com)
 2. **New → Blueprint**
 3. Conectar este repositorio (`ayni-01/ayni-infra`)
-4. Render detecta el `render.yaml` y muestra los 8 recursos (1 DB + 7 servicios)
+4. Render detecta el `render.yaml` y muestra los 9 recursos (1 DB + 8 servicios)
 5. Hacer clic en **Apply** → Render crea todo automáticamente
 
 ---
@@ -87,7 +87,7 @@ Una vez desplegado, Render asigna URLs del tipo:
 plan: starter   # $7/mes por servicio — no se duermen, más RAM
 ```
 
-Con 8 recursos en Starter: ~$56/mes.
+Con 9 recursos en Starter: ~$63/mes.
 
 ---
 
@@ -97,4 +97,5 @@ Render inyecta automáticamente todas las variables de DB desde el `fromDatabase
 
 | Variable | Dónde configurar | Valor |
 |---|---|---|
-| `JWT_SECRET` | Dashboard → cada servicio → Environment | Mismo valor en los 7 |
+| `JWT_SECRET` | Dashboard → cada servicio → Environment | Mismo valor en los 8 |
+| `OPENROUTER_API_KEY` | Dashboard → `ayni-asistente-ia-service` → Environment | Solo en ese servicio |
