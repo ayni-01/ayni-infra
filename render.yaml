@@ -290,7 +290,7 @@ services:
           property: database
       - key: JWT_SECRET
         sync: false
-      - key: OPENROUTER_API_KEY
+      - key: OPENAI_API_KEY
         sync: false
-      - key: OPENROUTER_MODEL
-        value: openai/gpt-oss-20b:free
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini

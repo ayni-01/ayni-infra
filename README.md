@@ -32,7 +32,7 @@ El `JWT_SECRET` está marcado como `sync: false` (secreto manual). Después de q
 
    Además, solo en `ayni-asistente-ia-service`:
    ```
-   OPENROUTER_API_KEY = <tu api key de openrouter.ai>
+   OPENAI_API_KEY = <tu api key de platform.openai.com>
    ```
 
 3. Render redesplegará cada servicio automáticamente al guardar.
@@ -98,4 +98,4 @@ Render inyecta automáticamente todas las variables de DB desde el `fromDatabase
 | Variable | Dónde configurar | Valor |
 |---|---|---|
 | `JWT_SECRET` | Dashboard → cada servicio → Environment | Mismo valor en los 8 |
-| `OPENROUTER_API_KEY` | Dashboard → `ayni-asistente-ia-service` → Environment | Solo en ese servicio |
+| `OPENAI_API_KEY` | Dashboard → `ayni-asistente-ia-service` → Environment | Solo en ese servicio |
